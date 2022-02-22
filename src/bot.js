@@ -1,14 +1,24 @@
 // Require the necessary discord.js classes
 const { Client, Intents, MessageEmbed } = require('discord.js');
 const { MessageActionRow, MessageButton } = require('discord.js');
-const { joinVoiceChannel, VoiceConnectionStatus } = require('@discordjs/voice')
+const { joinVoiceChannel, createAudioPlayer, createAudioResource, VoiceConnectionStatus } = require('@discordjs/voice')
 
 const sounds = require('../sounds.json');
 
 const session = {
-    'voice-channel': undefined,
     'soundboard': undefined,
 };
+
+function playSound(sound) {
+    if (session.player === undefined) { return };
+
+    sound = sounds.find(s => s.slug === sound);
+
+    const resource = createAudioResource(sound.path);
+
+    session.player.play(resource);
+    
+}
 
 function createButton(sound) {
     const button = new MessageButton()
@@ -66,7 +76,11 @@ function getToken() {
 
 // When the client is ready, run this code (only once)
 client.once('ready', () => {
-	console.log('Ready!');
+    // Create audio player
+    const player = createAudioPlayer();
+    session.player = player;
+    
+    console.log('Ready!');
 });
 
 // Respond to commands
