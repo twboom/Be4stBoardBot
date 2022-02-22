@@ -1,0 +1,25 @@
+{
+  "name": "be4stboardbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/twboom/Be4stBoardBot.git"
+  },
+  "author": "Thijs Boom",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/twboom/Be4stBoardBot/issues"
+  },
+  "homepage": "https://github.com/twboom/Be4stBoardBot#readme",
+  "dependencies": {
+    "@discordjs/builders": "^0.12.0",
+    "@discordjs/rest": "^0.3.0",
+    "discord-api-types": "^0.27.2",
+    "discord.js": "^13.6.0"
+  }
+}
