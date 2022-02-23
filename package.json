@@ -1,0 +1,24 @@
+{
+  "name": "be4stboardbot",
+  "version": "1.0.0",
+  "description": "The original Be4stSie soundboard, but on Discord!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/twboom/Be4stBoardBot.git"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "soundboard"
+  ],
+  "author": "Thijs Boom",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/twboom/Be4stBoardBot/issues"
+  },
+  "homepage": "https://github.com/twboom/Be4stBoardBot#readme"
+}
