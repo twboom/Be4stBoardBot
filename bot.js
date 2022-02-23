@@ -1,11 +1,11 @@
 const fs = require('fs');
+const { log } = require('./functions/utility.js')
 const { Client, Collection, Intents } = require('discord.js');
-const { token } = require('./config.json');
+const { token } = require('./config/validation.json');
 
 // Create the client
-const client = new Client({
-    intens: [Intents.FLAGS.GUILDS]
-});
+const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+
 
 // Set the commands
 client.commands = new Collection();
@@ -32,3 +32,12 @@ client.on('interactionCreate', async interaction => {
         await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
     };
 });
+
+
+// When client is ready
+client.once('ready', _ => {
+    log('bot', 'Client is ready')
+});
+
+// Login
+client.login(token)
