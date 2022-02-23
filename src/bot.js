@@ -1,7 +1,10 @@
 // Require the necessary discord.js classes
 const { Client, Intents, MessageEmbed } = require('discord.js');
 const { MessageActionRow, MessageButton } = require('discord.js');
-const { joinVoiceChannel, createAudioPlayer, createAudioResource, VoiceConnectionStatus } = require('@discordjs/voice')
+const { joinVoiceChannel, createAudioPlayer, createAudioResource, VoiceConnectionStatus, StreamType, generateDependencyReport } = require('@discordjs/voice');
+const { join } = require('path');
+
+const { ffmpeg } = require('ffmpeg-static')
 
 const sounds = require('../sounds.json');
 
@@ -14,9 +17,19 @@ function playSound(sound) {
 
     sound = sounds.find(s => s.slug === sound);
 
-    const resource = createAudioResource(sound.path);
+    sound.path = `./sounds/${sound.slug}.mp3`;
+
+    sound.path = join(__dirname, sound.path);
+
+    const resource = createAudioResource(sound.path, {
+        inputType: StreamType.Arbitrary
+    });
+
+    session.connection.subscribe(session.player)
 
     session.player.play(resource);
+
+    console.log(`   [->] Played ${sound.name}`);
     
 }
 
@@ -54,7 +67,7 @@ function createSoundboard() {
 
 
 // Create a new client instance
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES] });
 
 function getTime() {
     const date = new Date();
@@ -197,11 +210,15 @@ client.on('interactionCreate', async interaction => {
 
     console.log(`[*] [${now}] User ${getUser(interaction)} pressed the button "${sound}"`);
 
-    await interaction.reply('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+    await interaction.deferUpdate();
+
+    playSound(sound);
 });
 
 // Start the bot
 function main() {
+
+    console.log(generateDependencyReport())
 
     // Get the token from the command line
     const token = getToken();

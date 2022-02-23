@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
+const { Routes, ChannelType } = require('discord-api-types/v9');
 const { token, clientId, guildId } = require('../config.json');
 
 const commands = [
@@ -15,6 +15,7 @@ const commands = [
 				.setName('channel')
 				.setDescription('The channel to join')
 				.setRequired(true)
+				.addChannelTypes([ChannelType.GuildVoice, ChannelType.GuildStageVoice])
 			)
 		)
 ]
