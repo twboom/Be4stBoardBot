@@ -4,8 +4,6 @@ const { MessageActionRow, MessageButton } = require('discord.js');
 const { joinVoiceChannel, createAudioPlayer, createAudioResource, VoiceConnectionStatus, StreamType, generateDependencyReport } = require('@discordjs/voice');
 const { join } = require('path');
 
-const { ffmpeg } = require('ffmpeg-static')
-
 const sounds = require('../sounds.json');
 
 const session = {
