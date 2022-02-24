@@ -1,8 +1,8 @@
 {
   "name": "be4stboardbot",
   "version": "1.0.0",
-  "description": "",
-  "main": "bot.js",
+  "description": "The original Be4stSie soundboard, but on Discord!",
+  "main": "be4stboard.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,6 +10,11 @@
     "type": "git",
     "url": "git+https://github.com/twboom/Be4stBoardBot.git"
   },
+  "keywords": [
+    "discord",
+    "bot",
+    "soundboard"
+  ],
   "author": "Thijs Boom",
   "license": "GPL-3.0-or-later",
   "bugs": {
@@ -23,10 +28,8 @@
     "@discordjs/voice": "^0.8.0",
     "discord-api-types": "^0.27.2",
     "discord.js": "^13.6.0",
-    "ffmpeg": "^0.0.4",
     "ffmpeg-static": "^4.4.1",
-    "fluent-ffmpeg": "^2.1.2",
     "libsodium-wrappers": "^0.7.9",
-    "opusscript": "^0.0.8"
+    "node-fetch": "^2.6.7"
   }
 }
