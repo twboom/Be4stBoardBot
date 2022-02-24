@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // Valid operations
 const operations = ['bot', 'deploy-commands']
 
