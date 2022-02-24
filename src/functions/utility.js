@@ -1,6 +1,7 @@
 const permissions = require('../config/permissions.json')
 
 const types = {
+    'system': '@',
     'bot': '+',
     'interaction': '*',
     'followup': '->'
