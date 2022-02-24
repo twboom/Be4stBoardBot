@@ -1,6 +1,7 @@
 const { createAudioResource } = require('@discordjs/voice');
 const { MessageActionRow, MessageButton } = require('discord.js');
-const fetch = require('node-fetch')
+const fetch = require('node-fetch');
+const { log } = require('./utility.js');
 
 async function getSounds() {
     const response = await fetch('https://be4stboard.thijsboom.com/api/sounds.json');
@@ -44,26 +45,37 @@ async function create(interaction) {
         components: components,
     })
 
+    log('followup', 'Soundboard created')
+
 };
 
 // Play a sound
 async function play(interaction, session) {
+
+    log('interaction', `User ${interaction.user.tag} pressed the button ${interaction.customId}`)
+
+    if (session.player === undefined || session.connection === undefined) {
+        await interaction.reply({
+            content: 'The bot is not in a voice channel!',
+            ephemeral: true
+        })
+        log('followup', 'Bot not in a voice channel')
+        return
+    };
 
     interaction.deferUpdate();
 
     const sounds = await getSounds();
 
     const url = 'be4stboard.thijsboom.com';
-    const sound = sounds.find(({ slug }) => slug === interaction.customId);
-
-    if (session.player === undefined || session.connection === undefined) { return };
-
-    console.log(interaction.customId)
+    const sound = sounds.find(({ slug }) => slug === interaction.customId);   
 
     const location = `https://${url}/${sound.path}`;
     const resource = createAudioResource(location);
     session.connection.subscribe(session.player);
     session.player.play(resource);
+
+    log('followup', `Played sample '${sound.name}'`)
 
 };
 

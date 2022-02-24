@@ -21,18 +21,24 @@ for (const file of commandFiles) {
     client.commands.set(command.data.name, command);
 };
 
+log('bot', 'Loaded commands')
+
 // Execute if command gets run
 client.on('interactionCreate', async interaction => {
     if (!interaction.isCommand()) { return };
 
     const command = client.commands.get(interaction.commandName);
+    const user = interaction.user;
+
+    log('interaction', `${user.tag} ran ${interaction.toString()}`)
 
     if (!command) { return };
 
     try {
         await command.execute(interaction, session)
     } catch (error) {
-        console.log(error)
+        log('bot', 'An error occured:');
+        console.log(error);
         await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
     };
 });
@@ -51,7 +57,10 @@ client.once('ready', _ => {
     const player = createAudioPlayer();
     session.player = player;
 
+    const user = client.user;
+
     log('bot', 'Client is ready');
+    log('followup', `Logged in as ${user.tag}`)
 });
 
 // Login

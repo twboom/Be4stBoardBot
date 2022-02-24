@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { joinVoiceChannel } = require("@discordjs/voice");
-const { ChannelType } = require('discord-api-types/v9')
+const { ChannelType } = require('discord-api-types/v9');
+const { log } = require('../functions/utility.js');
 
 const command = new SlashCommandBuilder()
                     .setName('channel')
@@ -52,6 +53,8 @@ async function execute(interaction, session) {
         content: message,
         ephemeral: true
     })
+
+    log('followup', message)
     
 };
 

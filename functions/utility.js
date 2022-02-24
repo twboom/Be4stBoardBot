@@ -7,8 +7,15 @@ const types = {
 // Log message
 function log(type, message) {
     const prefix = types[type];
+    const time = getTime();
 
-    const output = `[${prefix}] [${getTime()}]  ${message}`
+    let output;
+
+    if (type === 'followup') {
+        output = `   [${prefix}] ${message}` 
+    } else {
+        output = `[${prefix}] [${time}]  ${message}`
+    };
 
     console.log(output)
 };

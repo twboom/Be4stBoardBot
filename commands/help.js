@@ -1,5 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
+const { log } = require('../functions/utility.js');
+
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -33,5 +35,7 @@ module.exports = {
                     ])
             ]
         })
-    }
+        log('followup', `Sent help to ${interaction.user.tag}`)
+    },
+    ephemeral: true
 };

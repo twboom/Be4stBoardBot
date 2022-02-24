@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { create } = require('../functions/soundboard.js');
+const { log } = require('../functions/utility.js');
 
 const command = new SlashCommandBuilder()
                     .setName('soundboard')
@@ -12,6 +13,7 @@ async function execute(interaction) {
     switch (operation) {
 
         case 'create':
+            log('followup', 'Creating soundboard')
             create(interaction);
             break;
 
