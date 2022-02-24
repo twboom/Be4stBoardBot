@@ -2,10 +2,14 @@ const fs = require('fs');
 const { log } = require('./functions/utility.js')
 const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config/validation.json');
+const { createAudioPlayer } = require('@discordjs/voice');
+const { play } = require('./functions/soundboard.js')
 
 // Create the client
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES] });
 
+// Session storage
+const session = {}
 
 // Set the commands
 client.commands = new Collection();
@@ -26,7 +30,7 @@ client.on('interactionCreate', async interaction => {
     if (!command) { return };
 
     try {
-        await command.execute(interaction)
+        await command.execute(interaction, session)
     } catch (error) {
         console.log(error)
         await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
@@ -34,9 +38,20 @@ client.on('interactionCreate', async interaction => {
 });
 
 
+// Execute when button gets pressed
+client.on('interactionCreate', async interaction => {
+    if (!interaction.isButton()) { return };
+
+    play(interaction, session);
+});
+
+
 // When client is ready
 client.once('ready', _ => {
-    log('bot', 'Client is ready')
+    const player = createAudioPlayer();
+    session.player = player;
+
+    log('bot', 'Client is ready');
 });
 
 // Login
