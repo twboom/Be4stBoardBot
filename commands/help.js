@@ -25,11 +25,11 @@ module.exports = {
                             value: 'Shows this message'
                         },
                         {
-                            name: '`join`',
+                            name: '`channel join`',
                             value: 'Joins a voice channel (channel option for selecting)'
                         },
                         {
-                            name: 'leave',
+                            name: '`channel leave`',
                             value: 'Leaves the current channel'
                         }
                     ])
