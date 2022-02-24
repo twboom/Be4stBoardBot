@@ -1,4 +1,5 @@
-const permissions = require('../config/permissions.json')
+const { getPath } = require("./utility.js");
+const permissions = require(getPath('permissions'))
 
 // Check permissions
 async function checkPermissions(interaction, action) {

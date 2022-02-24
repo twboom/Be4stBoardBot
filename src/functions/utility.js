@@ -50,6 +50,13 @@ function prompt(message) {
     return child_process.spawnSync(cmd, args, opts).stdout.toString().trim();
 };
 
+// Get path of config file
+function getPath(file) {
+    const path = require('path');
+    const cwd = process.cwd();
+    return path.join(cwd + '/config/', file + '.json')
+};
+
 // Get the time
 function getTime() {
     const date = new Date();
@@ -60,4 +67,5 @@ function getTime() {
 module.exports = {
     log,
     prompt,
+    getPath,
 }

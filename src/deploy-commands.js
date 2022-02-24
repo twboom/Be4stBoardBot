@@ -1,8 +1,8 @@
 const fs = require('fs');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-const { clientId, guildId, token } = require('./config/authentication.json');
-const { log } = require('./functions/utility.js');
+const { log, getPath } = require('./functions/utility.js');
+const { clientId, guildId, token } = require(getPath('authentication'));
 
 log('bot', 'Deploying commands')
 
