@@ -1,5 +1,3 @@
-const permissions = require('../config/permissions.json')
-
 const types = {
     'system': '@',
     'bot': '+',
@@ -23,30 +21,33 @@ function log(type, message) {
     console.log(output)
 };
 
-// Check permissions
-async function checkPermissions(interaction, action) {
-    let role = permissions[action]
-    if (role === undefined || role === "") { role === everyone };
+// Synchronously prompt for input
+function prompt(message) {
+    const os = require('os')
+    const child_process = require('child_process')
 
-    // If role is everyone, return 
-    if (role === "everyone") { return true };
+    // Write message
+    process.stdout.write(message);
 
-    const roles = interaction.member.roles.cache;
+    // Work out shell command to prompt for a string and echo it to stdout
+    let cmd;
+    let args;
+    if (os.platform() == "win32") {
+        cmd = 'cmd';
+        args = [ '/V:ON', '/C', 'set /p response= && echo !response!' ];
+    } else {
+        cmd = 'bash';
+        args = [ '-c', 'read response; echo "$response"' ];
+    }
 
-    const roleId = roles.has(role);
-    const roleName = roles.some(r => r.name === role);
+    // Pipe stdout back to self so we can read the echoed value
+    let opts = { 
+        stdio: [ 'inherit', 'pipe', 'inherit' ],
+        shell: false,
+    };
 
-    if (roleId || roleName) { return true };
-
-    await interaction.reply({
-        content: 'You do not have required role to perform this action',
-        ephemeral: true
-    })
-
-    log('followup', `User ${interaction.user.tag} does not have required role to perform this action`)
-
-    return false
-
+    // Run it
+    return child_process.spawnSync(cmd, args, opts).stdout.toString().trim();
 };
 
 // Get the time
@@ -58,5 +59,5 @@ function getTime() {
 // Export
 module.exports = {
     log,
-    checkPermissions,
+    prompt,
 }

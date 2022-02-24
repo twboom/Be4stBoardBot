@@ -2,6 +2,8 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const { joinVoiceChannel } = require("@discordjs/voice");
 const { ChannelType } = require('discord-api-types/v9');
 const { log } = require('../functions/utility.js');
+const { checkPermissions } = require('../functions/permissions.js');
+
 
 const command = new SlashCommandBuilder()
                     .setName('channel')

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { log } = require('./functions/utility.js')
 const { Client, Collection, Intents } = require('discord.js');
-const { token } = require('./config/validation.json');
+const { token } = require('./config/authentication.json');
 const { createAudioPlayer } = require('@discordjs/voice');
 const { play } = require('./functions/soundboard.js')
 

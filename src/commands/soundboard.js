@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { create } = require('../functions/soundboard.js');
-const { log, checkPermissions } = require('../functions/utility.js');
+const { log } = require('../functions/utility.js');
+const { checkPermissions } = require('../functions/permissions.js');
 
 const command = new SlashCommandBuilder()
                     .setName('soundboard')
