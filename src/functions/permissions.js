@@ -1,4 +1,4 @@
-const { getPath } = require("./utility.js");
+const { log, getPath } = require("./utility.js");
 const permissions = require(getPath('permissions'))
 
 // Check permissions
