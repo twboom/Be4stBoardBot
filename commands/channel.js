@@ -28,6 +28,7 @@ async function execute(interaction, session) {
 
     switch (operation) {
         case 'join':
+            if (! await checkPermissions(interaction, 'channel-join')) { return };
             const channel = interaction.options.getChannel('channel');
             const connection = joinVoiceChannel({
                 channelId: channel.id,
@@ -39,6 +40,7 @@ async function execute(interaction, session) {
             break;
 
         case 'leave':
+            if (! await checkPermissions(interaction, 'channel-leave')) { return };
             if (session.connection === undefined) {
                 message = 'There was no connection';
                 return;
