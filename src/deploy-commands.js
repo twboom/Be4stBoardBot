@@ -9,7 +9,7 @@ log('bot', 'Deploying commands')
 const commands = []; // Array for the commands
 
 // Get the commands
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const commandFiles = fs.readdirSync(path.join(__dirname, './commands')).filter(file => file.endsWith('.js'));
 log('followup', 'Got the command files')
 
 

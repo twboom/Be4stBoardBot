@@ -3,7 +3,8 @@ const { log, getPath } = require('./functions/utility.js')
 const { Client, Collection, Intents } = require('discord.js');
 const { token } = require(getPath('authentication'));
 const { createAudioPlayer } = require('@discordjs/voice');
-const { play } = require('./functions/soundboard.js')
+const { play } = require('./functions/soundboard.js');
+const path = require('path');
 
 // Create the client
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES] });
@@ -13,7 +14,7 @@ const session = {}
 
 // Set the commands
 client.commands = new Collection();
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const commandFiles = fs.readdirSync(path.join(__dirname, './commands')).filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
