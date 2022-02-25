@@ -42,11 +42,14 @@ async function main() {
 
     // Download sounds
     log('bot', 'Downloading sounds');
+    let pending = [];
     for (const sound of sounds) {
         const soundPath = path.join(cachePath, `${sound.slug}.${sound.extension}`);
-        await download(config.soundRoot + sound.url, soundPath);
+        pending.push(download(config.soundRoot + sound.url, soundPath));
         log('followup', `Downloaded ${sound.slug}.${sound.extension}`);
     };
+
+    await Promise.all(pending);
 
     log('bot', 'Finished downloading all files');
 

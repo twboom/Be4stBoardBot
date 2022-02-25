@@ -64,7 +64,7 @@ function getTime() {
 };
 
 // Download a file
-function download(url, file) {
+async function download(url, file) {
     const fs = require('fs');
 
     url = new URL(url); // Convert to URL object
@@ -75,10 +75,16 @@ function download(url, file) {
         http = require('http');
     };
 
-    const output = fs.createWriteStream(file);
-    const request = http.get(url.href, r => {
-        r.pipe(output);
-    });
+    return new Promise(async resolve => {
+        const output = fs.createWriteStream(file);
+        const request = http.get(url.href, r => {
+            r.pipe(output);
+            output.on('finish', async _ => {
+                await output.close()
+                resolve()
+            })
+        });
+    })
 };
 
 // Export
