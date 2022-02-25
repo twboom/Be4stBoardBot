@@ -24,6 +24,45 @@ for (const file of commandFiles) {
 
 log('bot', 'Loaded commands')
 
+function checkLocal() {
+    const cwd = process.cwd();
+    session.useLocal = true;
+    log('bot', 'Checking local files')
+    const cachePath = path.join(cwd, 'cache');
+    const soundsPath = path.join(cachePath, 'sounds.json');
+    if (fs.existsSync(cachePath) && fs.statSync(cachePath).isDirectory()) {
+        if (fs.existsSync(cachePath + '/sounds.json') && fs.statSync(cachePath + '/sounds.json').isFile()) {
+            const sounds = JSON.parse(fs.readFileSync(soundsPath));
+            for (const sound of sounds) {
+                soundPath = path.join(cachePath, `${sound.slug}.${sound.extension}`);
+                if (fs.existsSync(soundPath) && fs.statSync(soundPath).isFile()) {
+                } else {
+                    log('followup', `${sound.slug}.${sound.extension} not found`);
+                    session.useLocal = false;
+                };
+            };
+        } else {
+            log('followup', 'No local files');
+            session.useLocal = false;
+        }
+    } else {
+        log('followup', 'No local files');
+        session.useLocal = false;
+    };
+    
+    if (!session.local) {
+        session.local = false;
+        log('warning', 'No local files found or not complete');
+        log('followup', 'Consider dowloading the files with `be4stboard download-files`');
+        log('followup', 'Now using online files');
+    } else {
+        log('followup', 'All files found');
+    };
+
+};
+
+checkLocal();
+
 // Execute if command gets run
 client.on('interactionCreate', async interaction => {
     if (!interaction.isCommand()) { return };
