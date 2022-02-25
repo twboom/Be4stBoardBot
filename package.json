@@ -28,7 +28,7 @@
   "bugs": {
     "url": "https://github.com/twboom/Be4stBoardBot/issues"
   },
-  "homepage": "https://github.com/twboom/Be4stBoardBot#readme",
+  "homepage": "https://be4stboard.thijsboom.com/bot",
   "dependencies": {
     "@discordjs/builders": "^0.12.0",
     "@discordjs/opus": "^0.5.3",
