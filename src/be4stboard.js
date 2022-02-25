@@ -2,7 +2,7 @@
 const { log } = require('./functions/utility.js');
 
 // Valid operations
-const operations = ['bot', 'deploy-commands', 'setup']
+const operations = ['bot', 'deploy-commands', 'setup', 'download-files']
 
 // Main function
 function main() {
