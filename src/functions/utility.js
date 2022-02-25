@@ -2,7 +2,8 @@ const types = {
     'system': '@',
     'bot': '+',
     'interaction': '*',
-    'followup': '->'
+    'followup': '->',
+    'warning': '!',
 }
 
 // Log message
