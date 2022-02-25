@@ -63,9 +63,28 @@ function getTime() {
     return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 };
 
+// Download a file
+function download(url, file) {
+    const fs = require('fs');
+
+    url = new URL(url); // Convert to URL object
+    let http;
+    if (url.protocol === 'https:') {
+        http = require('https');
+    } else {
+        http = require('http');
+    };
+
+    const output = fs.createWriteStream(file);
+    const request = http.get(url.href, r => {
+        r.pipe(output);
+    });
+};
+
 // Export
 module.exports = {
     log,
     prompt,
     getPath,
+    download,
 }
