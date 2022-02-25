@@ -1,8 +1,8 @@
 {
   "name": "be4stboard",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "The original Be4stSie soundboard, but on Discord!",
-  "main": "be4stboard.js",
+  "main": "./src/be4stboard.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,7 +23,7 @@
   "author": "Thijs Boom",
   "license": "GPL-3.0-or-later",
   "bin": {
-    "be4stboard": "./be4stboard.js"
+    "be4stboard": "./src/be4stboard.js"
   },
   "bugs": {
     "url": "https://github.com/twboom/Be4stBoardBot/issues"
