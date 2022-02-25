@@ -17,6 +17,11 @@ function main() {
 
     if (fs.existsSync(cachePath) && fs.statSync(cachePath).isDirectory()) {
         log('followup', 'Cache directory already exists');
+        if (fs.readdirSync(cachePath).length > 0) {
+            fs.rmSync(cachePath, { recursive: true, force: true });
+            fs.mkdirSync(cachePath);
+            log('followup', 'Cache directory cleared');
+        };
     } else {
         log('followup', 'Cache directory does not exists');
         fs.mkdirSync(cachePath);
