@@ -57,6 +57,7 @@ function checkLocal() {
         log('followup', 'Now using online files');
     } else {
         log('followup', 'All files found');
+        log('followup', 'Using local files');
     };
 
 };
