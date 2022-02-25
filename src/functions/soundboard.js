@@ -2,6 +2,7 @@ const { createAudioResource } = require('@discordjs/voice');
 const { MessageActionRow, MessageButton } = require('discord.js');
 const fetch = require('node-fetch');
 const { log } = require('./utility.js');
+const path = require('path');
 
 async function getSounds() {
     const response = await fetch('https://be4stboard.thijsboom.com/api/sounds.json');
@@ -10,9 +11,16 @@ async function getSounds() {
 };
 
 // Create a soundboard
-async function create(interaction) {
+async function create(interaction, { useLocal }) {
 
-    const sounds = await getSounds();
+    let sounds;
+
+    if (useLocal) {
+        const cache = path.join(process.cwd(), 'cache');
+        sounds = require(path.join(cache, 'sounds.json'));
+    } else {
+        sounds = await getSounds();
+    };
 
     const selection = sounds.slice(0, 25);
 

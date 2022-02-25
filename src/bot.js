@@ -63,6 +63,15 @@ function checkLocal() {
 
 checkLocal();
 
+// Load the sounds.json if using local files
+if (session.useLocal) {
+    const cwd = process.cwd();
+    const cachePath = path.join(cwd, 'cache');
+    const soundsPath = path.join(cachePath, 'sounds.json');
+    const sounds = JSON.parse(fs.readFileSync(soundsPath));
+    session.soundList = sounds;
+};
+
 // Execute if command gets run
 client.on('interactionCreate', async interaction => {
     if (!interaction.isCommand()) { return };
