@@ -1,12 +1,13 @@
-const { log } = require("./functions/utility.js");
+const { log, download } = require("./functions/utility.js");
 const path = require('path');
 const fs = require('fs');
 
 const config = {
-    soundsLocation: 'https://be4stboard.thijsboom.com/api/sounds.json'
+    soundsLocation: 'https://be4stboard.thijsboom.com/api/sounds.json',
+    soundRoot: 'https://be4stboard.thijsboom.com/',
 };
 
-function main() {
+async function main() {
     // Get current directory
     const cwd = process.cwd();
 
@@ -27,6 +28,27 @@ function main() {
         fs.mkdirSync(cachePath);
         log('followup', 'Cache directory made')
     };
+
+    // Download sounds.json
+    log('bot', 'Downloading for sounds.json');
+    const soundsPath = path.join(cachePath, 'sounds.json');
+    await download(config.soundsLocation, soundsPath);
+    log('followup', 'Sounds.json downloaded');
+
+    // Read sounds.json
+    log('bot', 'Loading sounds');
+    const sounds = JSON.parse(fs.readFileSync(soundsPath));
+    log('followup', 'Sounds loaded');
+
+    // Download sounds
+    log('bot', 'Downloading sounds');
+    for (const sound of sounds) {
+        const soundPath = path.join(cachePath, `${sound.slug}.${sound.extension}`);
+        await download(config.soundRoot + sound.url, soundPath);
+        log('followup', `Downloaded ${sound.slug}.${sound.extension}`);
+    };
+
+    log('bot', 'Finished downloading all files');
 
 };
 
