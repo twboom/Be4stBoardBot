@@ -1,6 +1,6 @@
 {
   "name": "be4stboard",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The original Be4stSie soundboard, but on Discord!",
   "main": "./src/be4stboard.js",
   "scripts": {
@@ -38,7 +38,6 @@
     "discord.js": "^13.6.0",
     "ffmpeg-static": "^4.4.1",
     "libsodium-wrappers": "^0.7.9",
-    "node-fetch": "^2.6.7",
-    "prompt-sync": "^4.2.0"
+    "node-fetch": "^2.6.7"
   }
 }
