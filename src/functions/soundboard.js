@@ -1,8 +1,10 @@
-const { createAudioResource } = require('@discordjs/voice');
+const { createAudioResource, StreamType } = require('@discordjs/voice');
 const { MessageActionRow, MessageButton } = require('discord.js');
 const fetch = require('node-fetch');
 const { log } = require('./utility.js');
 const path = require('path');
+const { createReadStream } = require('node:fs');
+
 
 async function getSounds() {
     const response = await fetch('https://be4stboard.thijsboom.com/api/sounds.json');
@@ -11,18 +13,13 @@ async function getSounds() {
 };
 
 // Create a soundboard
-async function create(interaction, { useLocal }) {
+async function create(interaction, { useLocal, soundList }) {
 
-    let sounds;
-
-    if (useLocal) {
-        const cache = path.join(process.cwd(), 'cache');
-        sounds = require(path.join(cache, 'sounds.json'));
-    } else {
-        sounds = await getSounds();
+    if (!useLocal) {
+        soundList = await getSounds();
     };
 
-    const selection = sounds.slice(0, 25);
+    const selection = soundList.slice(0, 25);
 
     let components = [];
 
@@ -58,11 +55,11 @@ async function create(interaction, { useLocal }) {
 };
 
 // Play a sound
-async function play(interaction, session) {
+async function play(interaction, { player, connection, useLocal, soundList }) {
 
     log('interaction', `User ${interaction.user.tag} pressed the button ${interaction.customId}`)
 
-    if (session.player === undefined || session.connection === undefined) {
+    if (player === undefined || connection === undefined) {
         await interaction.reply({
             content: 'The bot is not in a voice channel!',
             ephemeral: true
@@ -73,15 +70,29 @@ async function play(interaction, session) {
 
     interaction.deferUpdate();
 
-    const sounds = await getSounds();
+    const cache = path.join(process.cwd(), 'cache'); 
+    let location;
 
-    const url = 'be4stboard.thijsboom.com';
-    const sound = sounds.find(({ slug }) => slug === interaction.customId);   
+    if (!useLocal) {
+        soundList = await getSounds();
+    };
 
-    const location = `https://${url}/${sound.path}`;
-    const resource = createAudioResource(location);
-    session.connection.subscribe(session.player);
-    session.player.play(resource);
+    const sound = soundList.find(({ slug }) => slug === interaction.customId); 
+    
+    if (!useLocal) {
+        const url = 'be4stboard.thijsboom.com';
+        location = `https://${url}/${sound.path}`;
+    } else {
+        location = path.join(cache, `${sound.slug}.${sound.extension}`);
+        location = createReadStream(location);
+    };
+
+
+    const resource = createAudioResource(location, {
+        inputType: StreamType.Arbitrary,
+    });
+    connection.subscribe(player);
+    await player.play(resource);
 
     log('followup', `Played sample '${sound.name}'`)
 

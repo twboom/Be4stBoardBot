@@ -50,8 +50,8 @@ function checkLocal() {
         session.useLocal = false;
     };
     
-    if (!session.local) {
-        session.local = false;
+    if (!session.useLocal) {
+        session.useLocal = false;
         log('warning', 'No local files found or not complete');
         log('followup', 'Consider dowloading the files with `be4stboard download-files`');
         log('followup', 'Now using online files');

@@ -44,8 +44,9 @@ async function main() {
     log('bot', 'Downloading sounds');
     let pending = [];
     for (const sound of sounds) {
+        const soundUrl = config.soundRoot + sound.path;
         const soundPath = path.join(cachePath, `${sound.slug}.${sound.extension}`);
-        pending.push(download(config.soundRoot + sound.url, soundPath));
+        pending.push(download(soundUrl, soundPath));
         log('followup', `Downloaded ${sound.slug}.${sound.extension}`);
     };
 
