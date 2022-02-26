@@ -24,3 +24,4 @@ Yes you can! And it's also completely free! [Here][wiki] you can find informatio
 
 [website]: https://be4stboard.thijsboom.com
 [wiki]: https://github.com/twboom/Be4stBoardBot/wiki
+[license]: https://github.com/twboom/Be4stBoardBot/blob/main/LICENSE
