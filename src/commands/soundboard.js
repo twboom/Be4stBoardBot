@@ -8,7 +8,7 @@ const command = new SlashCommandBuilder()
                     .setDescription('Gives you the soundboard to play with!')
                     .addSubcommand(subcmd => subcmd.setName('create').setDescription('Creates a soundboard'))
 
-async function execute(interaction) {
+async function execute(interaction, session) {
     const operation = interaction.options.getSubcommand();
 
     switch (operation) {
@@ -16,7 +16,7 @@ async function execute(interaction) {
         case 'create':
             if (! await checkPermissions(interaction, 'soundboard-create')) { return };
             log('followup', 'Creating soundboard')
-            create(interaction);
+            create(interaction, session);
             break;
 
     };

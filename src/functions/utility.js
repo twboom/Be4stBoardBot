@@ -2,7 +2,8 @@ const types = {
     'system': '@',
     'bot': '+',
     'interaction': '*',
-    'followup': '->'
+    'followup': '->',
+    'warning': '!',
 }
 
 // Log message
@@ -63,9 +64,34 @@ function getTime() {
     return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 };
 
+// Download a file
+async function download(url, file) {
+    const fs = require('fs');
+
+    url = new URL(url); // Convert to URL object
+    let http;
+    if (url.protocol === 'https:') {
+        http = require('https');
+    } else {
+        http = require('http');
+    };
+
+    return new Promise(async resolve => {
+        const output = fs.createWriteStream(file);
+        const request = http.get(url.href, r => {
+            r.pipe(output);
+            output.on('finish', async _ => {
+                await output.close()
+                resolve()
+            })
+        });
+    })
+};
+
 // Export
 module.exports = {
     log,
     prompt,
     getPath,
+    download,
 }
