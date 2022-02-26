@@ -8,11 +8,13 @@ const path = require('path');
 
 // Create the client
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES] });
+log('bot', 'Client created');
 
 // Session storage
 const session = {}
 
 // Set the commands
+log('bot', 'Loading commands')
 client.commands = new Collection();
 const commandFiles = fs.readdirSync(path.join(__dirname, './commands')).filter(file => file.endsWith('.js'));
 
@@ -21,8 +23,7 @@ for (const file of commandFiles) {
     // Add to the collection
     client.commands.set(command.data.name, command);
 };
-
-log('bot', 'Loaded commands')
+log('followup', 'All commands loaded')
 
 function checkLocal() {
     const cwd = process.cwd();
