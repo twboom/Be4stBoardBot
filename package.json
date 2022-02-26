@@ -1,6 +1,6 @@
 {
   "name": "be4stboard",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "The original Be4stSie soundboard, but on Discord!",
   "main": "./src/be4stboard.js",
   "scripts": {
