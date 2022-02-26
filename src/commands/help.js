@@ -13,7 +13,8 @@ module.exports = {
                 new MessageEmbed()
                     .setColor('#7B0504')
                     .setTitle('Be4stBoard Help')
-                    .setDescription('Be4stBoard help menu')
+                    .setURL('https://github.com/twboom/Be4stBoardBot/wiki/Commands')
+                    .setDescription('')
                     .addField('**Commands:**', 'These commands are available for Be4stBoard')
                     .addFields([
                         {
@@ -33,9 +34,14 @@ module.exports = {
                             value: 'Leaves the current channel'
                         }
                     ])
-            ]
-        })
+                    .setFooter({
+                        text: 'Click the title to go the the wiki page on GitHub!'
+                    })
+                    .setTimestamp()
+            ],
+            ephemeral: true
+        },
+        )
         log('followup', `Sent help to ${interaction.user.tag}`)
     },
-    ephemeral: true
 };
