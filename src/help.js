@@ -9,8 +9,9 @@ function main() {
 
     console.log(underscore, 'Available operations:', reset);
     console.log('1. bot (Run the Discord bot)');
-    console.log('2. deploy-commands (Deploy the slashcommands)')
-    console.log('3. setup (Run the setup script)')
+    console.log('2. deploy-commands (Deploy the slashcommands)');
+    console.log('3. setup (Run the setup script)');
+    console.log('4. download-files (Download assets, like sounds, to your machine)');
     console.log('');
     console.log(underscore, 'How to run', reset);
     console.log('Run', reverse, 'be4stboard {operation}', reset, 'to run your operation of choice')
