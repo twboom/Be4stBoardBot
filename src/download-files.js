@@ -3,8 +3,8 @@ const path = require('path');
 const fs = require('fs');
 
 const config = {
-    soundsLocation: 'https://be4stboard.thijsboom.com/api/sounds.json',
-    soundRoot: 'https://be4stboard.thijsboom.com/',
+    soundsLocation: 'https://be4stboard.twboom.dev/api/sounds.json',
+    soundRoot: 'https://be4stboard.twboom.dev/',
 };
 
 async function main() {

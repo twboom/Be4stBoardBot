@@ -7,7 +7,7 @@ const { createReadStream } = require('node:fs');
 
 
 async function getSounds() {
-    const response = await fetch('https://be4stboard.thijsboom.com/api/sounds.json');
+    const response = await fetch('https://be4stboard.twboom.dev/api/sounds.json');
     const sounds = await response.json();
     return sounds
 };
@@ -80,7 +80,7 @@ async function play(interaction, { player, connection, useLocal, soundList }) {
     const sound = soundList.find(({ slug }) => slug === interaction.customId); 
     
     if (!useLocal) {
-        const url = 'be4stboard.thijsboom.com';
+        const url = 'be4stboard.twboom.dev';
         location = `https://${url}/${sound.path}`;
     } else {
         location = path.join(cache, `${sound.slug}.${sound.extension}`);

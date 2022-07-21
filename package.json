@@ -1,6 +1,6 @@
 {
   "name": "be4stboard",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "The original Be4stSie soundboard, but on Discord!",
   "main": "./src/be4stboard.js",
   "scripts": {
@@ -28,7 +28,7 @@
   "bugs": {
     "url": "https://github.com/twboom/Be4stBoardBot/issues"
   },
-  "homepage": "https://be4stboard.thijsboom.com/bot",
+  "homepage": "https://be4stboard.twboom.dev/bot",
   "dependencies": {
     "@discordjs/builders": "^0.12.0",
     "@discordjs/opus": "^0.5.3",

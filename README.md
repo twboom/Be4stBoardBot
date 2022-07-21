@@ -22,6 +22,6 @@ You can't. This will be a self-hosted bot, since I don't intend to use it on a d
 ## Can I use it anyway?
 Yes you can! And it's also completely free! [Here][wiki] you can find information on how to use it!
 
-[website]: https://be4stboard.thijsboom.com
+[website]: https://be4stboard.twboom.dev
 [wiki]: https://github.com/twboom/Be4stBoardBot/wiki
 [license]: https://github.com/twboom/Be4stBoardBot/blob/main/LICENSE
